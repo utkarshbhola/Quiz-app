@@ -24,25 +24,34 @@ const QuizPage: React.FC = () => {
   // ✅ Fetch questions
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/quiz/?amount=5")
-      .then((res) => {
-        type RawQuestion = {
-          id: number;
-          question: string;
-          options: string[];
-          correct_answer: string;
-        };
-        const decodedQuestions: Question[] = res.data.questions.map((q: RawQuestion) => ({
-          id: q.id,
-          question: he.decode(q.question).trim(),
-          options: q.options.map((opt: string) => he.decode(opt).trim()),
-          correct_answer: he.decode(q.correct_answer).trim(),
-        }));
+       .get("https://opentdb.com/api.php", {
+    params: { amount: 5, type: "multiple" }, // you can also add difficulty, category
+  })
+  .then((res) => {
+    const results = res.data.results;
 
-        setQuestions(decodedQuestions);
-        setAnswers(Array(decodedQuestions.length).fill(null));
-        setSelected(null);
-      })
+    interface ApiQuestion {
+      question: string;
+      correct_answer: string;
+      incorrect_answers: string[];
+    }
+
+    const decodedQuestions: Question[] = results.map((q: ApiQuestion, idx: number) => {
+      const options = [...q.incorrect_answers, q.correct_answer];
+      options.sort(() => Math.random() - 0.5); // shuffle
+
+      return {
+        id: idx + 1,
+        question: he.decode(q.question).trim(),
+        options: options.map((opt: string) => he.decode(opt).trim()),
+        correct_answer: he.decode(q.correct_answer).trim(),
+      };
+    });
+
+    setQuestions(decodedQuestions);
+    setAnswers(Array(decodedQuestions.length).fill(null));
+    setSelected(null);
+  })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }, []);
