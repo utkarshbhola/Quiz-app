@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaTrophy } from "react-icons/fa";
-import studyLady from "../assets/undraw_focused_m9bj.svg"; // ✅ place your toon in src/assets
+import studyLady from "../assets/undraw_focused_m9bj.svg"; 
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="relative flex flex-col h-screen font-sans overflow-hidden">
-      {/* 🔮 Glowing blur lights in background */}
+      {/* Glowing blur lights in background */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-purple-400/40 blur-3xl"></div>
       <div className="absolute top-40 -right-32 w-[500px] h-[500px] rounded-full bg-blue-400/40 blur-3xl"></div>
 

@@ -21,7 +21,7 @@ const QuizPage: React.FC = () => {
 
   const navigate = useNavigate();
 
-  // ✅ Fetch questions
+  //Fetch questions
   useEffect(() => {
     axios
        .get("https://opentdb.com/api.php", {
@@ -56,7 +56,7 @@ const QuizPage: React.FC = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  // ✅ Timer effect
+  // Timer effect
   useEffect(() => {
     if (loading || questions.length === 0) return;
 
@@ -72,7 +72,7 @@ const QuizPage: React.FC = () => {
     return () => clearTimeout(timer);
   }, [timeLeft, loading]);
 
-  // ✅ Reset timer + restore selection when question changes
+  // Reset timer + restore selection when question changes
   useEffect(() => {
     setTimeLeft(30);
     setSelected(answers[currentIndex]);
@@ -125,7 +125,7 @@ const QuizPage: React.FC = () => {
   if (loading) {
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gray-50 p-4">
-      {/* 🔮 Background blur blobs */}
+      {/* Background blur blobs */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-purple-400/40 blur-3xl"></div>
       <div className="absolute top-40 -right-32 w-[500px] h-[500px] rounded-full bg-blue-400/40 blur-3xl"></div>
 
@@ -170,11 +170,11 @@ const QuizPage: React.FC = () => {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gray-50 p-4">
-      {/* 🔮 Glowing blur lights */}
+      {/* Glowing blur lights */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-purple-400/40 blur-3xl"></div>
       <div className="absolute top-40 -right-32 w-[500px] h-[500px] rounded-full bg-blue-400/40 blur-3xl"></div>
 
-      {/* ✅ Quiz Container (Glassmorphic) */}
+      {/* Quiz Container (Glassmorphic) */}
       <div className="relative z-10 w-full max-w-xl rounded-2xl border bg-white/30 backdrop-blur-md p-6 shadow-xl">
         {/* Progress Bar */}
         <div className="mb-2 w-full">
